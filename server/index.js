@@ -5,6 +5,7 @@ const app = express()
 const massive = require('massive')
 const session = require('express-session')
 const axios = require('axios')
+const ctrl = require('./controller')
 
 app.use(bodyParser.json())
 app.use(express.static( __dirname + '/../public/build'))
@@ -53,11 +54,12 @@ app.get('/auth/callback', async (req,res)=>{
     let foundUser = await db.find_user([sub])
     if(foundUser[0]){
         req.session.user = foundUser[0]
+        res.redirect('/#/chat')
     } else {
         let createdUser = await db.create_user([sub, name, admin])
         req.session.user = createdUser[0]
+        res.redirect('/#/wpr')
     }
-    res.redirect('/#/wpr')
 
 })
 
@@ -73,6 +75,8 @@ app.get('/api/user-data', (req, res) => {
         res.status(401).send('Login please')
     }
    })
+
+app.post('/api/user', ctrl.create)
 
 const port = 4200
 

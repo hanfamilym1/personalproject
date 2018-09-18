@@ -14,7 +14,6 @@ export default class Home extends Component {
     }
 
     render(){
-        console.log(window.location)
         return(
             <div>
                 <br/>
