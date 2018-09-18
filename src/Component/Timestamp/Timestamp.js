@@ -6,7 +6,9 @@ export default class Timestamp extends Component {
         return(
             <div>
                 <Nav/>
-                Timestamp Component
+                <h2>How long have you been at DevMountain outside of class?</h2>
+                <button>Clock In</button>
+                <button>Clock Out</button>
             </div>
         )
     }

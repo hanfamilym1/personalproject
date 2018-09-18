@@ -29,14 +29,15 @@ app.use(session({
 }))
 
 const port = 4200
-const io = socket(app.listen(port, ()=>{console.log(`You are connected on ${port}`)}))
+const server = app.listen(port, ()=>{console.log(`You are connected on ${port}`)})
+const io = socket().listen(server)
 
 //socket stuff
 // io.on('connection', socket=> {
 //     console.log('User Connected")')
 //     socket.emit("welcome", {userID: socket.id})
 
-//     socket.on('message setn', function(data) {
+//     socket.on('message sent', function(data) {
 //         console.log(data)
 //         data.user = this.id
 //         io.emit('message dispatched', data)
@@ -97,6 +98,7 @@ app.get('/api/user-data', (req, res) => {
    })
 
 app.post('/api/user', ctrl.create)
+// app.get('/api/wpr', ctrl.read)
 
 
 

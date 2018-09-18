@@ -1,0 +1,19 @@
+.messages {
+	height: 90vh;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+  padding: 40px 15px;
+  overflow: scroll;
+}
+
+
+.input {
+	height: 10vh;
+	background-color: #e5e6ea;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+
