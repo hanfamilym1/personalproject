@@ -8,6 +8,7 @@ export default function Nav (){
             <Link to='/events'><button>Event</button></Link>
             <Link to='/times'><button>Timestamp</button></Link>
             <Link to='/settings'><button>Settings</button></Link>
+            <a href="http://localhost:3000/logout"><button>Logout</button></a>
         </div>
     )
 }

@@ -6,6 +6,7 @@ const massive = require('massive')
 const session = require('express-session')
 const axios = require('axios')
 const ctrl = require('./controller')
+const socket = require('socket.io')
 
 app.use(bodyParser.json())
 app.use(express.static( __dirname + '/../public/build'))
@@ -26,6 +27,25 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }))
+
+const port = 4200
+const io = socket(app.listen(port, ()=>{console.log(`You are connected on ${port}`)}))
+
+//socket stuff
+// io.on('connection', socket=> {
+//     console.log('User Connected")')
+//     socket.emit("welcome", {userID: socket.id})
+
+//     socket.on('message setn', function(data) {
+//         console.log(data)
+//         data.user = this.id
+//         io.emit('message dispatched', data)
+//     })
+
+//     socket.on('disconnect', ()=> {
+//         console.log('User Disconnected')})
+// })
+
 
 app.use((req,res,next)=>{
     if (ENVIRONMENT === 'dev') {
@@ -78,9 +98,7 @@ app.get('/api/user-data', (req, res) => {
 
 app.post('/api/user', ctrl.create)
 
-const port = 4200
 
 
-app.listen(port, ()=>{console.log(`You are connected on ${port}`)})
 
 

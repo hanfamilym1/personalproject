@@ -9,6 +9,7 @@ export default class Event extends Component {
                 <Nav/>
                 Event Component <br/>
                 <Link to='/create'><button>New Event</button></Link>
+                
             </div>
         )
     }
