@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import Nav from '../Nav/Nav'
+import Nav from '../Nav'
 
-export default class Chat extends Component {
+export default class Settings extends Component {
     render(){
         return(
             <div>
                 <Nav/>
-                Chat Component
+                Settings Component
             </div>
         )
     }
