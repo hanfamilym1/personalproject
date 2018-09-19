@@ -30,6 +30,9 @@
     },
     "/auth": {
       "target": "http://localhost:4200"
+    },
+    "/": {
+      "target": "http://localhost:4200"
     }
   }
 }

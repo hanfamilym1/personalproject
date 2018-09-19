@@ -14,12 +14,13 @@ class Settings extends Component {
 
     render(props){
         let {getWpr, getUserData} = this.props
+        
         console.log(this.props)
         return(
             <div>
                 <Nav/>
                 <h1>User: {this.props.user.name}</h1>
-                <h1>WPR: {this.props.wpr}</h1>
+                <h1>WPR: {this.props.user.wpr_id}</h1>
                 Settings Component
             </div>
         )

@@ -9,7 +9,7 @@ const ctrl = require('./controller')
 const socket = require('socket.io')
 
 app.use(bodyParser.json())
-app.use(express.static( __dirname + '/../public/build'))
+// app.use(express.static( __dirname + '/../public/build'))
 
 let {
     SESSION_SECRET,
@@ -28,24 +28,6 @@ app.use(session({
     saveUninitialized: true
 }))
 
-const port = 4200
-const server = app.listen(port, ()=>{console.log(`You are connected on ${port}`)})
-const io = socket().listen(server)
-
-//socket stuff
-// io.on('connection', socket=> {
-//     console.log('User Connected")')
-//     socket.emit("welcome", {userID: socket.id})
-
-//     socket.on('message sent', function(data) {
-//         console.log(data)
-//         data.user = this.id
-//         io.emit('message dispatched', data)
-//     })
-
-//     socket.on('disconnect', ()=> {
-//         console.log('User Disconnected')})
-// })
 
 
 app.use((req,res,next)=>{
@@ -71,7 +53,7 @@ app.get('/auth/callback', async (req,res)=>{
     let userRes = await axios.get(`https://${REACT_APP_DOMAIN}/userinfo?access_token=${tokenRes.data.access_token}`)
     const db = req.app.get('db')
     let { sub, name, admin } = userRes.data
-
+    
     let foundUser = await db.find_user([sub])
     if(foundUser[0]){
         req.session.user = foundUser[0]
@@ -81,7 +63,7 @@ app.get('/auth/callback', async (req,res)=>{
         req.session.user = createdUser[0]
         res.redirect('/#/wpr')
     }
-
+    
 })
 
 app.get('/logout', (req, res) => {
@@ -95,11 +77,35 @@ app.get('/api/user-data', (req, res) => {
     } else {
         res.status(401).send('Login please')
     }
-   })
+})
+
 
 app.post('/api/user', ctrl.create)
 // app.get('/api/wpr', ctrl.read)
 
+const port = 4200
+const io = socket(app.listen(port, ()=>{console.log(`You are connected on ${port}`)}))
+
+//socket stuff
+io.on('connection', socket=> {
+    console.log('User Connected')
+    socket.emit("welcome", {userID: socket.id})
+
+    socket.on('join room', data => {
+        console.log('Room joined', data.room)
+        socket.join(data.room);
+        io.to(data.room).emit('room joined', data.room);
+      })
+
+    socket.on('message sent', function(data) {
+        console.log(data)
+        data.user = this.id
+        io.to(data.room).emit('message dispatched', data)
+    })
+
+    socket.on('disconnect', ()=> {
+        console.log('User Disconnected')})
+})
 
 
 

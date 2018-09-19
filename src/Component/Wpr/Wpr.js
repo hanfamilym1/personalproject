@@ -28,6 +28,7 @@ class Wpr extends Component {
     render(props){
         const {getWpr, getUserData} = this.props
         console.log(this.props)
+        
         return(
             <div>
                 <br/>
