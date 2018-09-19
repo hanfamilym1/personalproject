@@ -108,5 +108,6 @@ io.on('connection', socket=> {
 })
 
 
-
+app.post('/api/messages', ctrl.messages)
+// app.get('/api/messages', ctrl.getMessages)
 

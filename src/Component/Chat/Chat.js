@@ -16,6 +16,7 @@ class Chat extends Component {
         this.updateMessages = this.updateMessages.bind(this)
         this.setUserId = this.setUserId.bind(this)
         this.sendMessage = this.sendMessage.bind(this)
+        // this.getMessages = this.getMessages.bind(this)
     }
 
     async componentDidMount() {
@@ -27,8 +28,17 @@ class Chat extends Component {
         this.socket.on('welcome', this.setUserId)
         this.socket.on('room joined', this.joinSuccess)
         this.joinRoom()
+        // this.getMessages()
     }
 
+    // getMessages(){
+    //     axios.get('/api/messages').then(res=> this.setState({
+    //         messages: res.data
+    //     }))
+    // }
+    //is it working?  probably not.  I'm trying to remember how this should work. 
+
+    
     updateMessages(message) {
         const updatedMessages = this.state.messages.slice()
         updatedMessages.push(message)
@@ -42,11 +52,14 @@ class Chat extends Component {
     }
 
     sendMessage() {
+        let {wpr_id, id} = this.props.user
+        let {value} = this.refs.message
         this.socket.emit('message sent', {
-            message: this.refs.message.value,
-            room: this.props.user.wpr_id
+            message: value,
+            room: wpr_id
         })
         this.refs.message.value = '';
+        axios.post('/api/messages', {value, id, wpr_id})
     }
 
     joinRoom() {
@@ -72,6 +85,7 @@ class Chat extends Component {
         return (
             <div>
                 <Nav />
+                <h3>Welcome to Cohort {this.props.user.wpr_id}:</h3>
                 <div className='messages'>
                     {messages}
                 </div>
