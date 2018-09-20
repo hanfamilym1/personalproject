@@ -11,9 +11,9 @@ module.exports={
         let {value, id, wpr_id} = req.body
         db.insert_messages([value, id, wpr_id]).then(chat=> res.status(200).send(chat)).catch(err=>{console.log(err)})
     },
-    // getMessages: (req,res)=>{
-    //     const db = req.app.get('db')
-    //     db.get_messages().then(res=>res.data).catch(err=>{console.log(err)})
-    // }
+    getMessages: (req,res)=>{
+        const db = req.app.get('db')
+        db.get_messages().then(messages=>res.status(200).send(messages)).catch(err=>{console.log(err)})
+    }
    
 }

@@ -28,14 +28,14 @@ class Chat extends Component {
         this.socket.on('welcome', this.setUserId)
         this.socket.on('room joined', this.joinSuccess)
         this.joinRoom()
-        // this.getMessages()
+        this.getMessages()
     }
 
-    // getMessages(){
-    //     axios.get('/api/messages').then(res=> this.setState({
-    //         messages: res.data
-    //     }))
-    // }
+    getMessages(){
+        axios.get('/api/messages').then(res=> this.setState({
+            messages: res.data
+        }))
+    }
     //is it working?  probably not.  I'm trying to remember how this should work. 
 
     
@@ -60,6 +60,7 @@ class Chat extends Component {
         })
         this.refs.message.value = '';
         axios.post('/api/messages', {value, id, wpr_id})
+        this.getMessages()
     }
 
     joinRoom() {
@@ -74,12 +75,18 @@ class Chat extends Component {
     }
 
     render(props) {
-
+        console.log(this.state.messages)
         console.log(this.props)
         const messages = this.state.messages.map((e, i) => {
+            if (e.wpr_id === this.props.user.wpr_id){
             return (
+                <div>
+                <p key={i}>{e.name}</p>
+                <p key={i}>{e.time}</p>
                 <p key={i}>{e.message}</p>
-            )
+                <p key={i}>{e.wpr_id}</p>
+                </div>  
+            )} 
         })
         console.log(messages)
         return (
