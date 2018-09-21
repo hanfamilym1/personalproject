@@ -5,6 +5,8 @@ import axios from 'axios'
 import './Chat.css'
 import { getWpr, getUserData } from '../../ducks/reducer'
 import { connect } from 'react-redux'
+import moment from'moment'
+import 'moment-timezone'
 
 class Chat extends Component {
     constructor() {
@@ -23,16 +25,19 @@ class Chat extends Component {
         let res = await axios.get('/api/user-data')
         // use action creator to update redux store
         this.props.getUserData(res.data)
+        this.getMessages()
         this.socket = io('/')
         this.socket.on('message dispatched', this.updateMessages)
         this.socket.on('welcome', this.setUserId)
         this.socket.on('room joined', this.joinSuccess)
         this.joinRoom()
-        this.getMessages()
     }
 
     getMessages(){
-        axios.get('/api/messages').then(res=> this.setState({
+        console.log(this.props.user.wpr_id)
+        axios.get(`/api/messages/${this.props.user.wpr_id}`).then(res=>
+            
+            this.setState({
             messages: res.data
         }))
     }
@@ -52,22 +57,21 @@ class Chat extends Component {
     }
 
     sendMessage() {
-        let {wpr_id, id} = this.props.user
+        let {wpr_id, user_id} = this.props.user
         let {value} = this.refs.message
         this.socket.emit('message sent', {
             message: value,
             room: wpr_id
         })
         this.refs.message.value = '';
-        axios.post('/api/messages', {value, id, wpr_id})
-        this.getMessages()
+        axios.post('/api/messages', {value, user_id, wpr_id})
     }
 
     joinRoom() {
         this.socket.emit('join room', {
             room: this.props.user.wpr_id
         })
-        this.setState({ messages: [] })
+        this.setState({ messages: [...this.state.messages] })
     }
 
     joinSuccess(room) {
@@ -79,12 +83,13 @@ class Chat extends Component {
         console.log(this.props)
         const messages = this.state.messages.map((e, i) => {
             if (e.wpr_id === this.props.user.wpr_id){
+                let time = moment(e.time).subtract(5, 'hours')
             return (
                 <div>
                 <p key={i}>{e.name}</p>
-                <p key={i}>{e.time}</p>
+                <p key={i}>{time.tz("America/Los_Angeles").format('LLL')}</p>
                 <p key={i}>{e.message}</p>
-                <p key={i}>{e.wpr_id}</p>
+                {/* <p key={i}>{e.wpr_id}</p> */}
                 </div>  
             )} 
         })

@@ -109,5 +109,6 @@ io.on('connection', socket=> {
 
 
 app.post('/api/messages', ctrl.messages)
-app.get('/api/messages', ctrl.getMessages)
-
+app.get('/api/messages/:id', ctrl.getMessages)
+app.post('/api/times', ctrl.time)
+app.get('/api/times', ctrl.getTimes)

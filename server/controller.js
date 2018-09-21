@@ -8,12 +8,28 @@ module.exports={
     messages: (req,res)=>{
         const db = req.app.get('db')
         console.log(req.body)
-        let {value, id, wpr_id} = req.body
-        db.insert_messages([value, id, wpr_id]).then(chat=> res.status(200).send(chat)).catch(err=>{console.log(err)})
+        let {value, user_id, wpr_id} = req.body
+        db.insert_messages([value, user_id, wpr_id]).then(chat=> res.status(200).send(chat)).catch(err=>{console.log(err)})
     },
     getMessages: (req,res)=>{
         const db = req.app.get('db')
-        db.get_messages().then(messages=>res.status(200).send(messages)).catch(err=>{console.log(err)})
-    }
+        console.log(req.params)
+        let {id} = req.params
+        db.get_messages([id]).then(messages=> 
+            res.status(200).send(messages)
+        ).catch(err=>{console.log(err)})
+    },
+    time: (req,res)=>{
+        const db = req.app.get('db')
+        console.log(req.body)
+        let {user_id, clock_in} = req.body
+        db.insert_time([user_id,clock_in]).then(times=>
+        res.status(200).send(times)).catch(err=>{console.log(err)})
+    },
+    getTimes: (req,res)=>{
+        const db = req.app.get('db')
+        console.log(req.session)
+        db.get_times([req.session.user.user_id]).then(times=> res.status(200).send(times)).catch(err=>console.log(err))
+        }
    
 }

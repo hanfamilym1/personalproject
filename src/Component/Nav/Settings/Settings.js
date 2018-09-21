@@ -21,7 +21,6 @@ class Settings extends Component {
                 <Nav/>
                 <h1>User: {this.props.user.name}</h1>
                 <h1>WPR: {this.props.user.wpr_id}</h1>
-                Settings Component
             </div>
         )
     }
