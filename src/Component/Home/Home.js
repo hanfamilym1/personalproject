@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import logo from './DevBuddy.png'
 // import {Link} from 'react-router-dom'
+import './Home.css'
 
 export default class Home extends Component {
     constructor(props){
@@ -15,13 +16,9 @@ export default class Home extends Component {
 
     render(){
         return(
-            <div>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <img src={logo} alt=""/><br/>
-                <button onClick={this.login}><h1>Login</h1></button>
+            <div className='Home'>
+                <img id='home_image' src={logo} alt=""/><br/>
+                <button id='home_button' onClick={this.login}><h1>LOGIN</h1></button>
             </div>
         )
     }

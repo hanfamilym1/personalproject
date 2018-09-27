@@ -5,6 +5,7 @@ import moment from 'moment'
 import axios from 'axios'
 import { getWpr, getUserData } from '../../ducks/reducer'
 import {connect} from 'react-redux'
+import 'moment-duration-format'
 
 class Timestamp extends Component {
     constructor(props){
@@ -62,19 +63,25 @@ class Timestamp extends Component {
     handleTimeSpent(){
        if (this.state.times){
             console.log(this.state.times)
-            let timeSpent = this.state.times.map((e,i)=>{
-                console.log(e) 
-                let newmoment = moment(e.time).valueOf()
-                console.log(newmoment)
-                return (
-                    <div>
-                        <p>{newmoment}</p>
-                    </div>
-                )
-            })
-            console.log(timeSpent)
-
-            return timeSpent
+            let channel = this.state.times.slice()
+            let time1 = channel.shift()
+            console.log('time1', time1)
+            let time2 = channel.pop()
+            console.log('time2', time2)
+            if (time1){
+                console.log(time1.time)
+                let newtime1 = moment(time1.time).valueOf()
+                let newtime2 = moment(time2.time).valueOf()
+                console.log(newtime1)
+                console.log(newtime2)
+                let calculatedTime = newtime1 - newtime2
+                console.log(calculatedTime)
+                let showntime = moment.duration(calculatedTime, "milliseconds").format("h [hrs], m [min]")
+                console.log(showntime)
+                return showntime
+            }
+            return 'Please Clock In and Clock Out When Done'
+           
        } else {
            return 'Please Clock In and Clock Out When Done'
        }
@@ -101,9 +108,9 @@ class Timestamp extends Component {
                 <button onClick={this.handleClick}>Clock In</button>
                 <button onClick={this.handleCheckOut}>Clock Out</button>
 
-                <h5>Time Spent Today:</h5>
+                <h2>Time Spent Today:</h2>
                 {/* <h6>{timespent}</h6> */}
-                <h6>{this.handleTimeSpent()}</h6>
+                <h3>{this.handleTimeSpent()}</h3>
             </div>
         )
     }

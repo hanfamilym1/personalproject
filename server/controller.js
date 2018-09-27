@@ -30,6 +30,20 @@ module.exports={
         const db = req.app.get('db')
         console.log(req.session)
         db.get_times([req.session.user.user_id]).then(times=> res.status(200).send(times)).catch(err=>console.log(err))
-        }
+        },
+    events: (req,res)=>{
+        const db = req.app.get('db')
+        console.log(req.body)
+        let {user_id, end, start, title} = req.body
+        db.insert_events([user_id, end, start, title]).then(event =>
+        res.status(200).send(event)).catch(err=>{console.log(err)})
+    },
+    getEvents: (req, res)=>{
+        const db = req.app.get('db')
+        db.get_events().then(events=>
+            res.status(200).send(events)
+        ).catch(err=>console.log(err))
+
+    }
    
 }

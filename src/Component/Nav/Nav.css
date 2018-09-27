@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+.Nav {
+    background-color: #252525;
+    height: 10vh;
+}
+
+.Nav_button{
+    background-color: #2487BB;
+    color: white;
+    margin-top: 20px;
+    margin-left: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100px;
+    height: 30px;
+    font-family: "Raleway", sans-serif;
+}
