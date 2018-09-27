@@ -25,18 +25,32 @@ class Event extends Component {
     getEvents(){
         axios.get('/api/events').then(res=>{
             console.log(res.data)
-            // this.setState({
-            //     events: res.data
-            // })
+            let tryMap = res.data.map((e,i)=> {
+                let {end, start, title} = e
+                let nend = new Date(end)
+                let nstart = new Date(start)
+                let newe = {
+                    nend,
+                    nstart,
+                    title
+                }
+                return newe
+            }
+            )
+            console.log(tryMap)
+            this.setState({
+                events: tryMap
+            })
         })
     }
 
-    handleSelect = ({ start, end }) => {
-        const title = window.prompt('New Event name')
+    handleSelect = ( { start, end } ) => {
+        const title = window.prompt('Please input your WPR and description')
+        // console.log(start, end)
         if (title){
             this.setState({
                 events: [
-                    ...this.state.events,
+                    ...this.state.events, 
                     {
                         start,
                         end,
@@ -49,6 +63,7 @@ class Event extends Component {
           this.getEvents()
       }
     }
+    
     
 
 
@@ -64,13 +79,14 @@ class Event extends Component {
                 localizer={localizer}
                 events={this.state.events}
                 defaultView={BigCalendar.Views.WEEK}
-                startAccessor="start"
-                endAccessor="end"
+                startAccessor="nstart"
+                endAccessor="nend"
                 scrollToTime={new Date(1970, 1, 1, 6)}
                 onSelectEvent={event=> alert(event.title)}
                 onSelectSlot={this.handleSelect}
                 />
-                <Link to='/create'><button>New Event</button></Link>
+                
+                {/* <Link to='/create'><button>New Event</button></Link> */}
                 
             </div>
         )
