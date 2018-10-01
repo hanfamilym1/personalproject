@@ -43,7 +43,15 @@ module.exports={
         db.get_events().then(events=>
             res.status(200).send(events)
         ).catch(err=>console.log(err))
-
+    },
+    getUsers: (req,res)=>{
+        const db = req.app.get('db')
+        db.get_users().then(users=> res.status(200).send(users)).catch(err=>console.log(err))    
+    },
+    deleteUser: (req,res)=>{
+        const db = req.app.get('db')
+        console.log(req.params)
     }
+
    
 }

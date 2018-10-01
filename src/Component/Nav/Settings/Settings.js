@@ -3,6 +3,7 @@ import Nav from '../Nav'
 import {getWpr, getUserData} from '../../../ducks/reducer'
 import {connect} from 'react-redux'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 class Settings extends Component {
 
@@ -14,6 +15,7 @@ class Settings extends Component {
 
     render(props){
         let {getWpr, getUserData} = this.props
+       
         
         console.log(this.props)
         return(
@@ -21,6 +23,9 @@ class Settings extends Component {
                 <Nav/>
                 <h1>User: {this.props.user.name}</h1>
                 <h1>WPR: {this.props.user.wpr_id}</h1>
+                {this.props.user.admin? <Link to='/admin'> <button><h3>Admin Page</h3></button></Link>: null
+                }
+               
             </div>
         )
     }
