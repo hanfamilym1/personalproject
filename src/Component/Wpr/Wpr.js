@@ -22,7 +22,7 @@ class Wpr extends Component {
         let {wpr} = this.props
         let newWpr = Number(wpr)
         console.log('id', id, 'wpr', newWpr)
-        axios.post('/api/user', {id, newWpr}).then(res=> res.data)
+        axios.post('/api/user', {id, newWpr}).then(res=> res.data).then(console.log(this.props.history.push(`/chat`)))
     }
 
     render(props){
@@ -41,7 +41,7 @@ class Wpr extends Component {
                 <option value="42">42</option>
                 </select> <br/>
                 <br/>
-                <Link to='/chat'><button onClick={this.attachWpr}>Next</button></Link>
+                <button onClick={this.attachWpr}>Next</button>
             </div>
         )
     }

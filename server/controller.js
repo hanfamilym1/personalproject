@@ -51,6 +51,17 @@ module.exports={
     deleteUser: (req,res)=>{
         const db = req.app.get('db')
         console.log(req.params)
+        let {id} = req.params
+        db.delete_user(id).then(users=>res.status(200).send(users)).catch(err=>console.log(err))
+        
+    },
+    updateUser: (req,res)=>{
+        const db = req.app.get('db')
+        console.log(req.params)
+       let {id} = req.params
+        console.log(req.body)
+        let {wpr_id} = req.body
+        db.change_user(wpr_id, id).then(users=>res.status(200).send(users)).catch(err=>console.log(err))
     }
 
    
