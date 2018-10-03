@@ -59,8 +59,25 @@ class Event extends Component {
                 ],
             })
             let {user_id} = this.props.user
-          axios.post('/api/events', {user_id, end, start, title})
-          this.getEvents()
+          axios.post('/api/events', {user_id, end, start, title}).then(res=>{
+            console.log(res.data)
+            let tryMap = res.data.map((e,i)=> {
+                let {end, start, title} = e
+                let nend = new Date(end)
+                let nstart = new Date(start)
+                let newe = {
+                    nend,
+                    nstart,
+                    title
+                }
+                return newe
+            }
+            )
+            console.log(tryMap)
+            this.setState({
+                events: tryMap
+            })
+        })
       }
     }
     
@@ -72,7 +89,7 @@ class Event extends Component {
         console.log(this.props)
         let localizer = BigCalendar.momentLocalizer(moment)
         return(
-            <div class='Event'>
+            <div className='Event'>
                 <Nav/>
                 <BigCalendar
                 selectable

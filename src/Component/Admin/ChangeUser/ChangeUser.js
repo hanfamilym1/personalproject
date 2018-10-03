@@ -55,8 +55,13 @@ export default class ChangeUser extends Component {
             users: res.data,
             editToggle: false
         }))
-        this.getUsers()
+        // this.getUsers()
 
+    }
+    goBack(){
+        this.setState({
+            editToggle: false
+        })
     }
 
     deleteUser(value) {
@@ -90,6 +95,7 @@ export default class ChangeUser extends Component {
             <div>
                 <Link to='/admin'><button><h3>Admin Page</h3></button></Link>
                 {this.state.editToggle ? <div>
+                    <label htmlFor="">Change the WPR </label>
                     <select name="" id="" onChange={e=> this.handleText(e.target.value)}>
                     <option value="38">38</option>
                     <option value="39">39</option>
@@ -98,6 +104,7 @@ export default class ChangeUser extends Component {
                     <option value="42">42</option>
                     </select>
                     <button onClick={(e) => this.updateUser(e.target.value)}>Save</button>
+                    <button onClick={(e) => this.goBack(e.target.value)}>Back</button>
                 </div>
 
                     : newUsers

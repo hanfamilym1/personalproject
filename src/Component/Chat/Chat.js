@@ -5,7 +5,7 @@ import axios from 'axios'
 import './Chat.css'
 import { getWpr, getUserData } from '../../ducks/reducer'
 import { connect } from 'react-redux'
-import moment from'moment'
+import moment from 'moment'
 import 'moment-timezone'
 
 class Chat extends Component {
@@ -33,17 +33,17 @@ class Chat extends Component {
         this.joinRoom()
     }
 
-    getMessages(){
+    getMessages() {
         console.log(this.props.user.wpr_id)
-        axios.get(`/api/messages/${this.props.user.wpr_id}`).then(res=>
-            
+        axios.get(`/api/messages/${this.props.user.wpr_id}`).then(res =>
+
             this.setState({
-            messages: res.data
-        }))
+                messages: res.data
+            }))
     }
     //is it working?  probably not.  I'm trying to remember how this should work. 
 
-    
+
     updateMessages(message) {
         const updatedMessages = this.state.messages.slice()
         updatedMessages.push(message)
@@ -57,14 +57,16 @@ class Chat extends Component {
     }
 
     sendMessage() {
-        let {wpr_id, user_id} = this.props.user
-        let {value} = this.refs.message
+        let { wpr_id, user_id } = this.props.user
+        let { value } = this.refs.message
         this.socket.emit('message sent', {
             message: value,
             room: wpr_id
         })
         this.refs.message.value = '';
-        axios.post('/api/messages', {value, user_id, wpr_id})
+        axios.post('/api/messages', { value, user_id, wpr_id }).then(res=>this.setState({
+            messages: res.data
+        }))
     }
 
     joinRoom() {
@@ -82,28 +84,34 @@ class Chat extends Component {
         console.log(this.state.messages)
         console.log(this.props)
         const messages = this.state.messages.map((e, i) => {
-            if (e.wpr_id === this.props.user.wpr_id){
+            if (e.wpr_id === this.props.user.wpr_id) {
                 let time = moment(e.time).subtract(5, 'hours')
-            return (
-                <div>
-                <p key={i}>{e.name}</p>
-                <p key={i}>{time.tz("America/Los_Angeles").format('LLL')}</p>
-                <p key={i}>{e.message}</p>
-                {/* <p key={i}>{e.wpr_id}</p> */}
-                </div>  
-            )} 
+                return (
+                    <div className='message'>
+                        <div className='hiddeninfo'>
+                            <p className='hidden' key={i}>{e.name}</p>
+                            <p className='hidden' key={i}>{time.tz("America/Los_Angeles").format('LLL')}</p>
+                        </div>
+                        <div className='actualmessage'>
+                            <p key={i}>{e.message}</p>
+                        </div>
+                    </div>
+                )
+            }
         })
         console.log(messages)
         return (
-            <div>
+            <div className='chat'>
                 <Nav />
-                <h3>Welcome to Cohort {this.props.user.wpr_id}:</h3>
-                <div className='messages'>
-                    {messages}
+                <h3 id='chat_header'>Welcome to Cohort {this.props.user.wpr_id}:</h3>
+                <div className='container'>
+                    <div className='messages'>
+                        {messages}
+                    </div>
                 </div>
                 <div className='input'>
-                    <input type="text" ref='message' />
-                    <button onClick={this.sendMessage}>Send</button>
+                    <input placeholder='Your message' id='chat_input' type="text" ref='message' />
+                    <button id='chat_button' onClick={this.sendMessage}>SEND</button>
                 </div>
             </div>
         )
@@ -117,4 +125,4 @@ function mapStateToProps(state) {
         user
     }
 }
-export default connect(mapStateToProps, {getUserData, getWpr})(Chat)
+export default connect(mapStateToProps, { getUserData, getWpr })(Chat)

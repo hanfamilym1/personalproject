@@ -62,6 +62,10 @@ module.exports={
         console.log(req.body)
         let {wpr_id} = req.body
         db.change_user(wpr_id, id).then(users=>res.status(200).send(users)).catch(err=>console.log(err))
+    },
+    getAdminTimes: (req,res)=>{
+        const db = req.app.get('db')
+        db.get_time_user().then(users => res.status(200).send(users)).catch(err=>console.log(err))
     }
 
    

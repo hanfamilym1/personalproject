@@ -22,7 +22,7 @@ class Wpr extends Component {
         let {wpr} = this.props
         let newWpr = Number(wpr)
         console.log('id', id, 'wpr', newWpr)
-        axios.post('/api/user', {id, newWpr}).then(res=> res.data).then(console.log(this.props.history.push(`/chat`)))
+        axios.post('/api/user', {id, newWpr}).then(res=> res.data).then(this.props.history.push(`/chat`))
     }
 
     render(props){
