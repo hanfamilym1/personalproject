@@ -26,12 +26,12 @@ class Timestamp extends Component {
     handleClick=()=>{
         let {user_id} = this.props.user
         let {checkin} = this.state
-        if (checkin === null){
+        if (checkin === null || checkin === false){
             let clock_in = true
-            axios.post('/api/times', {user_id, clock_in})
             this.setState({
                 checkin: clock_in
             })
+            axios.post('/api/times', {user_id, clock_in})
         } else if (checkin === true){
             console.log('Clock out please')
         }
@@ -42,11 +42,12 @@ class Timestamp extends Component {
         let {checkin} = this.state
         if (checkin === true){
             let clock_in = false
-            axios.post('/api/times', {user_id, clock_in})
             this.setState({
                 checkin: clock_in
             })
+            axios.post('/api/times', {user_id, clock_in})
             this.getTimes()
+            
         } else if (checkin === false || checkin === null){
             console.log('Clock in please')
         }
@@ -92,6 +93,7 @@ class Timestamp extends Component {
         console.log(this.props)
         console.log(this.props.user)
         let {checkin, checkout} = this.state
+        console.log(checkin, checkout)
         // const timespent = this.state.times.map((e,i)=>{
         //     if(this.state.times){
         //         return <div>
