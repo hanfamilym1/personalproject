@@ -85,7 +85,7 @@ app.get('/auth/callback', async (req,res)=>{
             let createdUser = await db.create_user([sub, name, admin])
             req.session.user = createdUser[0]
             res.redirect('/#/wpr')
-    }
+    }}
     
 })
 
