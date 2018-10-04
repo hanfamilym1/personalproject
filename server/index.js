@@ -10,6 +10,7 @@ const socket = require('socket.io')
 
 app.use(bodyParser.json())
 // app.use(express.static( __dirname + '/../public/build'))
+app.use( express.static( `${__dirname}/../build` ) );
 
 let {
     SESSION_SECRET,
@@ -68,7 +69,7 @@ app.get('/auth/callback', async (req,res)=>{
 
 app.get('/logout', (req, res) => {
     req.session.destroy()
-    res.redirect('http://localhost:3000/')
+    res.redirect(`${process.env.REACT_APP_LOGIN}`)
 })
 
 app.get('/api/user-data', (req, res) => {

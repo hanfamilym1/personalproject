@@ -9,7 +9,7 @@ export default function Nav (){
             <Link to='/events'><button className='Nav_button two'>EVENT</button></Link>
             <Link to='/times'><button className='Nav_button three'>TIMESTAMP</button></Link>
             <Link to='/settings'><button className='Nav_button four'>SETTINGS</button></Link>
-            <a href="http://localhost:3000/logout"><button className='Nav_button five'>LOGOUT</button></a>
+            <a href={`${process.env.REACT_APP_LOGOUT}`}><button className='Nav_button five'>LOGOUT</button></a>
         </div>
     )
 }
