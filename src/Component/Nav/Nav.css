@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
 .Nav {
-    background-color: #252525;
+    background-color: #104961;
+    /* background-color: #252525; */
     height: 10vh;
 }
 
@@ -17,7 +18,22 @@
     font-family: "Raleway", sans-serif;
 }
 
-.Nav_button:hover{
-    background-color: #34ACE0;
-    
+.one:hover{
+    background-color: #7AC5E5; 
+}
+
+.two:hover{
+    background-color: #7AC5E5; 
+}
+
+.three:hover{
+    background-color: #7AC5E5; 
+}
+
+.four:hover{
+    background-color: #7AC5E5; 
+}
+
+.five:hover{
+    background-color: #7AC5E5; 
 }

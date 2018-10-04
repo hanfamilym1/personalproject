@@ -1,0 +1,83 @@
+.admin_page {
+    width: 100%;
+    height: 100%;
+    background-color: #104961;
+    display: flex;
+    flex-direction: column;
+}
+
+.goback {
+    margin-top: 30px;
+    width: 100px;
+    height: 45px;
+    border-radius: 5px;
+    font-family: sans-serif;
+}
+
+.goback:hover {
+    transition: .3s ease-in-out;
+    background-color: #34ACE0;
+    border: none;
+    color: white;
+    transform: scale(1.05);
+}
+
+.userss{
+    display: flex;
+    justify-content: center;
+   
+}
+.users{
+    display: flex;
+    flex-direction: column;
+    /* width: 305px; */
+    /* justify-content: center; */
+}
+.user {
+    color: #F5F5F5;
+    border: 2px solid #F5F5F5;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    width: 300px;
+    justify-content: center;
+}
+
+.change_button {
+    /* margin-top: 30px; */
+    width: 80px;
+    height: 40px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    font-family: sans-serif;
+}
+
+.change_button:hover {
+    transition: .3s ease-in-out;
+    background-color: #34ACE0;
+    border: none;
+    color: white;
+    transform: scale(1.05);
+}
+
+.edit_page {
+    height: 100vh;
+    width: 100vw;
+    background-color: #104961;
+    display: flex;
+    justify-content: center;
+}
+.edit_users{
+   width: 300px;
+   height: 300px;
+   border: 2px solid #F5F5F5;
+   margin-top: 80px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.label_user {
+   padding: 10px;
+}
+

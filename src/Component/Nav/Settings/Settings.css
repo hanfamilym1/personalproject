@@ -1,0 +1,41 @@
+.settings_container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.settings {
+    background-color: #2487BB;
+    margin-top: 100px;
+    width: 500px;
+    height: 300px;
+    border: 1px solid #242424;
+    border-radius: 10px;
+}
+.setting {
+    font-family: sans-serif;
+    color: #F5F5F5;
+
+}
+
+.setting_info {
+    margin-top: 70px;
+}
+
+.Admin_button {
+    width: 100px;
+    border-radius: 5px;
+    border: 1px solid #F5F5F5;
+    color: #F5F5F5;
+    background-color: #34ACE0;
+}
+
+.Admin_button:hover {
+    transition: .2s ease-in-out;
+    transform: scale(1.12);
+    background-color: #2885AD;
+    /* color: #252525; */
+    /* border: 1px solid #252525; */
+}
