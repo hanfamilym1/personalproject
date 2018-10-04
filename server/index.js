@@ -43,6 +43,7 @@ app.use((req,res,next)=>{
 })
 
 app.get('/auth/callback', async (req,res)=>{
+    if (ENVIRONMENT ==='dev'){
     let payload = {
         client_id: REACT_APP_CLIENT_ID,
         client_secret: CLIENT_SECRET,
@@ -63,6 +64,27 @@ app.get('/auth/callback', async (req,res)=>{
         let createdUser = await db.create_user([sub, name, admin])
         req.session.user = createdUser[0]
         res.redirect('/#/wpr')
+    }} else if (ENVIRONMENT === 'herro'){
+        let payload = {
+            client_id: REACT_APP_CLIENT_ID,
+            client_secret: CLIENT_SECRET,
+            code: req.query.code,
+            grant_type: "authorization_code",
+            redirect_uri: `https://${req.headers.host}/auth/callback`
+        }
+        let tokenRes = await axios.post(`https://${REACT_APP_DOMAIN}/oauth/token`, payload)
+        let userRes = await axios.get(`https://${REACT_APP_DOMAIN}/userinfo?access_token=${tokenRes.data.access_token}`)
+        const db = req.app.get('db')
+        let { sub, name, admin } = userRes.data
+        
+        let foundUser = await db.find_user([sub])
+        if(foundUser[0]){
+            req.session.user = foundUser[0]
+            res.redirect('/#/chat')
+        } else {
+            let createdUser = await db.create_user([sub, name, admin])
+            req.session.user = createdUser[0]
+            res.redirect('/#/wpr')
     }
     
 })
