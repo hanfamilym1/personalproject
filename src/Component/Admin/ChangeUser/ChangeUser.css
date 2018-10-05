@@ -79,5 +79,23 @@
 
 .label_user {
    padding: 10px;
+   font-family: sans-serif;
+   color: white;
+
+}
+
+.change_select{
+    width: 100px;
+    height: 20px;
+    margin-bottom: 10px;
+
+}
+
+.change_select:hover{
+    transition: .3s ease-in-out;
+    background-color: #34ACE0;
+    border: none;
+    color: white;
+    transform: scale(1.05);
 }
 

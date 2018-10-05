@@ -1,6 +1,6 @@
 const initialState = {
   user: {},
-  wpr: null
+  wpr: 39
 }
 
 const GET_USER_DATA = 'GET_USER_DATA'

@@ -105,15 +105,15 @@ export default class ChangeUser extends Component {
                             <div className='edit_users'>
                                 <div className='edit_user'>
                                     <h3 className='label_user'><label  htmlFor="">Change the WPR </label> <br /></h3>
-                                    <select name="" id="" onChange={e => this.handleText(e.target.value)}>
+                                    <select className='change_select'name="" id="" onChange={e => this.handleText(e.target.value)}>
                                         <option value="38">38</option>
                                         <option value="39">39</option>
                                         <option value="40">40</option>
                                         <option value="41">41</option>
                                         <option value="42">42</option>
                                     </select> <br />
-                                    <button onClick={(e) => this.updateUser(e.target.value)}>Save</button>
-                                    <button onClick={(e) => this.goBack(e.target.value)}>Back</button>
+                                    <button className='change_button' onClick={(e) => this.updateUser(e.target.value)}>Save</button>
+                                    <button className='change_button' onClick={(e) => this.goBack(e.target.value)}>Back</button>
                                 </div>
                             </div>
                         </div>
