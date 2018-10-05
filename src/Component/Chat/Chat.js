@@ -13,16 +13,20 @@ class Chat extends Component {
         super()
         this.state = {
             userID: null,
-            messages: []
+            messages: [],
+            wpr_id: null,
+            user: null
         }
         this.updateMessages = this.updateMessages.bind(this)
         this.setUserId = this.setUserId.bind(this)
         this.sendMessage = this.sendMessage.bind(this)
+        this.getUser=this.getUser.bind(this)
         // this.getMessages = this.getMessages.bind(this)
     }
 
     async componentDidMount() {
         let res = await axios.get('/api/user-data')
+        // this.getUser()
         // use action creator to update redux store
         this.props.getUserData(res.data)
         this.getMessages()
@@ -33,8 +37,21 @@ class Chat extends Component {
         this.joinRoom()
     }
 
+    // componentDidUpdate(prevProps){
+    //     if(this.props.user.wpr_id !== prevProps.user.wpr_id){
+    //         this.getMessages()
+    //         this.joinRoom()
+    //     }
+    // }
+
+    getUser(){
+        // console.log(this.props.user.wpr_id)
+        axios.get('/api/user-data').then(res=> this.props.getUserData(res.data
+        ))
+    }
+
     getMessages() {
-        console.log(this.props.user.wpr_id)
+        // console.log(this.props.user.wpr_id)
         axios.get(`/api/messages/${this.props.user.wpr_id}`).then(res =>
 
             this.setState({
@@ -45,11 +62,13 @@ class Chat extends Component {
 
 
     updateMessages(message) {
+        console.log(message)
         const updatedMessages = this.state.messages.slice()
         updatedMessages.push(message)
         this.setState({
             messages: updatedMessages
         })
+        this.getMessages()
     }
 
     setUserId(user) {
@@ -57,11 +76,13 @@ class Chat extends Component {
     }
 
     sendMessage() {
-        let { wpr_id, user_id } = this.props.user
+        let { wpr_id, id } = this.props.user
+        let user_id = id
         let { value } = this.refs.message
+        console.log(user_id, value, wpr_id)
         this.socket.emit('message sent', {
             message: value,
-            room: wpr_id
+            room: wpr_id         
         })
         this.refs.message.value = '';
         axios.post('/api/messages', { value, user_id, wpr_id }).then(res=>this.setState({
@@ -83,6 +104,8 @@ class Chat extends Component {
     render(props) {
         console.log(this.state.messages)
         console.log(this.props)
+        // console.log(this.state.user)
+        
         const messages = this.state.messages.map((e, i) => {
             if (e.wpr_id === this.props.user.wpr_id) {
                 let time = moment(e.time).subtract(5, 'hours')
@@ -99,7 +122,7 @@ class Chat extends Component {
                 )
             }
         })
-        console.log(messages)
+        // console.log(messages)
         return (
             <div className='chat'>
                 <Nav />

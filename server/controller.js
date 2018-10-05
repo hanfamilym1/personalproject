@@ -3,7 +3,10 @@ module.exports={
         const db = req.app.get('db')
         console.log(req.body)
         let {id, newWpr} = req.body
-        db.insert_user_wpr([id, newWpr]).then(attach=>res.status(200).send(attach)).catch(err=>{console.log(err)})
+        db.insert_user_wpr([id, newWpr]).then(attach=>{
+            req.session.user.wpr_id = attach[0].wpr_id
+            res.status(200).send(req.session.user)}
+        ).catch(err=>{console.log(err)})
     },
     messages: (req,res)=>{
         const db = req.app.get('db')

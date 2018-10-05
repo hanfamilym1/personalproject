@@ -31,16 +31,16 @@ app.use(session({
 
 
 
-app.use((req,res,next)=>{
-    if (ENVIRONMENT === 'dev') {
-        req.app.get('db').set_data().then(userData => {
-            req.session.user = userData[0]
-            next();
-        })
-    } else {
-        next()
-    }
-})
+// app.use((req,res,next)=>{
+//     if (ENVIRONMENT === 'dev') {
+//         req.app.get('db').set_data().then(userData => {
+//             req.session.user = userData[0]
+//             next();
+//         })
+//     } else {
+//         next()
+//     }
+// })
 
 app.get('/auth/callback', async (req,res)=>{
     if (ENVIRONMENT ==='dev'){

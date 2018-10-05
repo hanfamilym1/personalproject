@@ -1,0 +1,72 @@
+.data_analysis {
+    width: 100vw;
+    height: 100vh;
+    background-color: #104961;
+}
+.data_container{
+    height: 15vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+.data_information{
+    margin-top:10px;
+    
+}
+.cohort41{
+    font-family: sans-serif;
+    color: white;
+    margin-top: 10px;
+
+}
+
+.chart_container{
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+}
+.chart{
+    margin-top: 50px;
+    width: 80vw;
+    height: 80vh;
+   
+
+}
+.chartjs-render-monitor{
+    background-color: #F5F5F5;
+    width: 80vw;
+    height: 80vh;
+
+}
+
+.data_button{
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    font-family: sans-serif;
+}
+
+.data_button:hover{
+    transition: .3s ease-in-out;
+    background-color: #34ACE0;
+    border: none;
+    color: white;
+    transform: scale(1.05);
+}
+
+.custom-select{
+    width:90px;
+    height: 30px;
+    margin-left: 10px;
+    margin-top:5px;
+    
+}
+
+.custom-select:hover{
+    transition: .3s ease-in-out;
+    background-color: #34ACE0;
+    border: none;
+    color: white;
+    transform: scale(1.05);
+}

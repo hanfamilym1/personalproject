@@ -3,7 +3,8 @@ import { Bar, Bubble, Line } from 'react-chartjs-2'
 import moment from 'moment'
 import axios from 'axios'
 import _ from 'lodash'
-import {Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import './Data.css'
 
 export default class Data extends Component {
     constructor() {
@@ -98,7 +99,7 @@ export default class Data extends Component {
             },
             week: '',
             fulldata: [],
-            michael: [[0, 0, 0, 0, 0, 0, 0],[1,2,4,1,5,0,0],[1,3,3,3,6,1,2]],
+            michael: [[0, 0, 0, 0, 0, 0, 0], [1, 2, 4, 1, 5, 0, 0], [1, 3, 3, 3, 6, 1, 2]],
             ken: [],
             kenny: [],
             randall: [],
@@ -117,17 +118,17 @@ export default class Data extends Component {
     }
 
     mapKen() {
-        let ken = this.state.fulldata.map((e,i)=>{
-            if (e.name === 'Ken Benioni'){
-                let {name, time} = e
+        let ken = this.state.fulldata.map((e, i) => {
+            if (e.name === 'Ken Benioni') {
+                let { name, time } = e
                 return name, time
             }
-        }).filter(e=>e)
+        }).filter(e => e)
         console.log(ken)
         let newken = []
-        for(var i=0;i < ken.length; i++){
+        for (var i = 0; i < ken.length; i++) {
             newken.push(
-                Number(moment.duration(moment(ken[i+1]).diff(moment(ken[i]))).format('hh')))
+                Number(moment.duration(moment(ken[i + 1]).diff(moment(ken[i]))).format('hh')))
         }
         let newken1 = newken.filter(e => e <= 10)
         let newken2 = _.chunk(newken1, 7)
@@ -138,16 +139,16 @@ export default class Data extends Component {
         console.log(newken1)
     }
     mapKenny() {
-        let kenny = this.state.fulldata.map((e,i)=>{
-            if (e.name === 'Kenny Crump'){
-                let {name, time} = e
+        let kenny = this.state.fulldata.map((e, i) => {
+            if (e.name === 'Kenny Crump') {
+                let { name, time } = e
                 return name, time
             }
-        }).filter(e=>e)
+        }).filter(e => e)
         let newkenny = []
-        for(var i=0;i < kenny.length; i++){
+        for (var i = 0; i < kenny.length; i++) {
             newkenny.push(
-                Number(moment.duration(moment(kenny[i+1]).diff(moment(kenny[i]))).format('hh')))
+                Number(moment.duration(moment(kenny[i + 1]).diff(moment(kenny[i]))).format('hh')))
         }
         let newkenny1 = newkenny.filter(e => e <= 10)
         let newkenny2 = _.chunk(newkenny1, 7)
@@ -158,16 +159,16 @@ export default class Data extends Component {
         // console.log(newkenny1)
     }
     mapRandall() {
-        let randall = this.state.fulldata.map((e,i)=>{
-            if (e.name === 'Randall Farnworth'){
-                let {name, time} = e
+        let randall = this.state.fulldata.map((e, i) => {
+            if (e.name === 'Randall Farnworth') {
+                let { name, time } = e
                 return name, time
             }
-        }).filter(e=>e)
+        }).filter(e => e)
         let newRandall = []
-        for(var i=0;i < randall.length; i++){
+        for (var i = 0; i < randall.length; i++) {
             newRandall.push(
-                Number(moment.duration(moment(randall[i+1]).diff(moment(randall[i]))).format('hh')))
+                Number(moment.duration(moment(randall[i + 1]).diff(moment(randall[i]))).format('hh')))
         }
         let newRandall1 = newRandall.filter(e => e <= 10)
         let newRandall2 = _.chunk(newRandall1, 7)
@@ -240,7 +241,7 @@ export default class Data extends Component {
         //         return name, time
         //     }
         // }).filter(e=>e)
-        
+
         // let newken = []
         // for(var i=0;i < ken.length; i++){
         //     newken.push(
@@ -257,17 +258,26 @@ export default class Data extends Component {
         // console.log(ken)
 
         return (
-            <div>
-                <h2>Cohort 41</h2>
-                <Link to='/admin'><button>Go Back</button></Link>
-                <Line data={this.state.data} />
-                <select name="" id="" onClick={this.updateWeek()} onChange={(e) => { this.getWeek(e.target.value) }}>
-                    <option value="Week1">Week 1</option>
-                    <option value="Week2">Week 2</option>
-                    <option value="Week3">Week 3</option>
-                </select>
+            <div className='data_analysis'>
+                <div className='data_container'>
+                    <div className='data_information'>
+                        <h2 className='cohort41'>Cohort 41</h2>
+                        <Link to='/admin'><button className='data_button'>Go Back</button></Link> 
+                            <select className='custom-select' name="" id="" onClick={this.updateWeek()} onChange={(e) => { this.getWeek(e.target.value) }}>
+                                <option value="Week1">Week 1</option>
+                                <option value="Week2">Week 2</option>
+                                <option value="Week3">Week 3</option>
+                            </select>
+                    </div>
+                </div>
+                <div className='chart_container'>
+                    <div className='chart'>
+                        <Line className='Line' data={this.state.data} />
+                    </div>
+                </div>
                 {/* <button onClick={this.updateWeek()}>Change Week</button> */}
             </div>
         )
     }
 }
+

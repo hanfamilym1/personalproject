@@ -22,13 +22,16 @@ class Wpr extends Component {
         let { id } = this.props.user
         let { wpr } = this.props
         let newWpr = Number(wpr)
-        console.log('id', id, 'wpr', newWpr)
-        axios.post('/api/user', { id, newWpr }).then(res => res.data).then(this.props.history.push(`/chat`))
+        // console.log('id', id, 'wpr', newWpr)
+        axios.post('/api/user', { id, newWpr }).then(res => {
+            this.props.getUserData(res.data)
+            this.props.history.push(`/chat`)
+        })
     }
 
     render(props) {
         const { getWpr, getUserData } = this.props
-        console.log(this.props)
+        // console.log(this.props)
 
         return (
             <div className='WPR'>
