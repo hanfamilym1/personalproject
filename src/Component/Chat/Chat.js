@@ -20,7 +20,7 @@ class Chat extends Component {
         this.updateMessages = this.updateMessages.bind(this)
         this.setUserId = this.setUserId.bind(this)
         this.sendMessage = this.sendMessage.bind(this)
-        this.getUser=this.getUser.bind(this)
+        this.getUser = this.getUser.bind(this)
         // this.getMessages = this.getMessages.bind(this)
     }
 
@@ -44,9 +44,9 @@ class Chat extends Component {
     //     }
     // }
 
-    getUser(){
+    getUser() {
         // console.log(this.props.user.wpr_id)
-        axios.get('/api/user-data').then(res=> this.props.getUserData(res.data
+        axios.get('/api/user-data').then(res => this.props.getUserData(res.data
         ))
     }
 
@@ -82,10 +82,10 @@ class Chat extends Component {
         console.log(user_id, value, wpr_id)
         this.socket.emit('message sent', {
             message: value,
-            room: wpr_id         
+            room: wpr_id
         })
         this.refs.message.value = '';
-        axios.post('/api/messages', { value, user_id, wpr_id }).then(res=>this.setState({
+        axios.post('/api/messages', { value, user_id, wpr_id }).then(res => this.setState({
             messages: res.data
         }))
     }
@@ -105,7 +105,7 @@ class Chat extends Component {
         console.log(this.state.messages)
         console.log(this.props)
         // console.log(this.state.user)
-        
+
         const messages = this.state.messages.map((e, i) => {
             if (e.wpr_id === this.props.user.wpr_id) {
                 let time = moment(e.time).subtract(5, 'hours')
@@ -132,9 +132,11 @@ class Chat extends Component {
                         {messages}
                     </div>
                 </div>
-                <div className='input'>
-                    <input placeholder='Your message' id='chat_input' type="text" ref='message' />
-                    <button id='chat_button' onClick={this.sendMessage}>SEND</button>
+                <div className='input_container'>
+                    <div className='input'>
+                        <input placeholder='Your message' id='chat_input' type="text" ref='message' />
+                        <button id='chat_button' onClick={this.sendMessage}>SEND</button>
+                    </div>
                 </div>
             </div>
         )

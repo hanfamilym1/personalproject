@@ -12,7 +12,7 @@
 	font-family: sans-serif;
 }
 .container {
-	height: 75vh;
+	height: 70vh;
 	width: 100vw;
 	display: flex;
 	justify-content: center;
@@ -22,7 +22,7 @@
 	
 }
 .messages {
-	height: 70vh;
+	height: 60vh;
 	width: 500px;
 	display: flex;
 	flex-direction: column;
@@ -36,9 +36,14 @@
 	  border: .5px solid #2487BB;
 }
 
-
-.input {
+.input_container{
 	height: 10vh;
+	display: flex;
+	justify-content:center;
+}
+.input {
+	margin-top: 20px;
+	height: 5vh;
 	/* background-color: #252525; */
 	background-color: #104961;
 	display: flex;
