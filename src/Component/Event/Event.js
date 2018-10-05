@@ -91,6 +91,9 @@ class Event extends Component {
         return(
             <div className='Event'>
                 <Nav/>
+                <div className='carendar'>
+
+
                 <BigCalendar
                 selectable
                 localizer={localizer}
@@ -103,6 +106,7 @@ class Event extends Component {
                 onSelectSlot={this.handleSelect}
                 />
                 
+                </div>
                 {/* <Link to='/create'><button>New Event</button></Link> */}
                 
             </div>
