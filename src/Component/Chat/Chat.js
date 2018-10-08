@@ -152,7 +152,9 @@ class Chat extends Component {
                 </div>
                 <div className='input_container'>
                     <div className='input'>
-                        <input onKeyPress={(e)=>this.sendMessage(e)} placeholder='Your message' id='chat_input' type="text" ref='message' />
+                        <input 
+                        onKeyPress={(e)=>this.sendMessage(e)} 
+                        placeholder='Your message' id='chat_input' type="text" ref='message' />
                         <button id='chat_button' onClick={this.sendMessages}>SEND</button>
                     </div>
                 </div>
