@@ -21,6 +21,7 @@ class Chat extends Component {
         this.setUserId = this.setUserId.bind(this)
         this.sendMessage = this.sendMessage.bind(this)
         this.getUser = this.getUser.bind(this)
+        this.sendMessages = this.sendMessages.bind(this)
         // this.getMessages = this.getMessages.bind(this)
     }
 
@@ -75,19 +76,36 @@ class Chat extends Component {
         this.setState(user)
     }
 
-    sendMessage() {
+    sendMessage(event) {
+        if (event.key === 'Enter') {
+            let { wpr_id, id } = this.props.user
+            let user_id = id
+            let { value } = this.refs.message
+            console.log(user_id, value, wpr_id)
+            this.socket.emit('message sent', {
+                message: value,
+                room: wpr_id
+            })
+            this.refs.message.value = '';
+            axios.post('/api/messages', { value, user_id, wpr_id }).then(res => this.setState({
+                messages: res.data
+            }))
+        }
+    }
+
+    sendMessages(){
         let { wpr_id, id } = this.props.user
-        let user_id = id
-        let { value } = this.refs.message
-        console.log(user_id, value, wpr_id)
-        this.socket.emit('message sent', {
-            message: value,
-            room: wpr_id
-        })
-        this.refs.message.value = '';
-        axios.post('/api/messages', { value, user_id, wpr_id }).then(res => this.setState({
-            messages: res.data
-        }))
+            let user_id = id
+            let { value } = this.refs.message
+            console.log(user_id, value, wpr_id)
+            this.socket.emit('message sent', {
+                message: value,
+                room: wpr_id
+            })
+            this.refs.message.value = '';
+            axios.post('/api/messages', { value, user_id, wpr_id }).then(res => this.setState({
+                messages: res.data
+            }))
     }
 
     joinRoom() {
@@ -134,8 +152,8 @@ class Chat extends Component {
                 </div>
                 <div className='input_container'>
                     <div className='input'>
-                        <input placeholder='Your message' id='chat_input' type="text" ref='message' />
-                        <button id='chat_button' onClick={this.sendMessage}>SEND</button>
+                        <input onKeyPress={(e)=>this.sendMessage(e)} placeholder='Your message' id='chat_input' type="text" ref='message' />
+                        <button id='chat_button' onClick={this.sendMessages}>SEND</button>
                     </div>
                 </div>
             </div>
