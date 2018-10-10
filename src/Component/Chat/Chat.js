@@ -78,8 +78,8 @@ class Chat extends Component {
 
     sendMessage(event) {
         if (event.key === 'Enter') {
-            let { wpr_id, id } = this.props.user
-            let user_id = id
+            let { wpr_id, user_id } = this.props.user
+            
             let { value } = this.refs.message
             console.log(user_id, value, wpr_id)
             this.socket.emit('message sent', {
